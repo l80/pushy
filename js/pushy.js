@@ -4,11 +4,11 @@
  * by Christopher Yee */
 
 $(function() {
-    var pushy = $('.pushy'), //menu css class
+    var pushy = $('.pushy-nav'), //menu css class
         doc = $(document),
         html = $('html'),
         body = $('body'),
-        container = $('#container'), //container css class
+        container = $('.pushy-body'), //container css class
         push = $('.push'), //css class to add pushy capability
         siteOverlay = $('.site-overlay'), //site overlay
         pushyClass = "pushy-left pushy-open", //menu position & menu open class

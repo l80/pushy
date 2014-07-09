@@ -7,7 +7,7 @@ ul{
 
 /* Container */
 
-#container{
+.pushy-body {
 	position: relative;
 }
 

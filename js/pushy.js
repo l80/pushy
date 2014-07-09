@@ -10,7 +10,7 @@ $(function() {
         body = $('body'),
         container = $('.pushy-body'), //container css class
         push = $('.push'), //css class to add pushy capability
-        siteOverlay = $('.site-overlay'), //site overlay
+        siteOverlay = $('.pushy-cloak'), //site overlay
         pushyClass = "pushy-left pushy-open", //menu position & menu open class
         pushyActiveClass = "pushy-active", //css class to toggle site overlay
         containerClass = "container-push", //container open class

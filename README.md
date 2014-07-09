@@ -38,7 +38,7 @@ Feel free to [let me know](http://www.twitter.com/cmyee) if you use Pushy in one
 </nav>
 
 <!-- Site Overlay -->
-<div class="site-overlay"></div>
+<div class="pushy-cloak"></div>
 
 <!-- Your Content -->
 <div id="container">

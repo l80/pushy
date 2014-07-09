@@ -27,3 +27,22 @@ ul{
 	background: #00b4ff;
 	color: #FFF;
 }
+
+.pushy-nav{
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.pushy-nav a{
+    display: block;
+    color: #b3b3b1;
+    padding: 15px 30px;
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+    border-top: 1px solid rgba(255, 255, 255, .1);
+    text-decoration: none;
+}
+
+.pushy-nav a:hover{
+    background: #00b4ff;
+    color: #FFF;
+}

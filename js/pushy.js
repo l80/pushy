@@ -3,7 +3,13 @@
  * https://github.com/christophery/pushy/
  * by Christopher Yee */
 
-$(function() {
+$.pushy = function (options) {
+
+    options = $.extend({
+        onOpen: function() {},
+        onClose: function() {}
+    }, options);
+
     var pushy = $('.pushy-nav'), //menu css class
         doc = $(document),
         html = $('html'),
@@ -15,7 +21,6 @@ $(function() {
         pushyActiveClass = "pushy-active", //css class to toggle site overlay
         containerClass = "container-push", //container open class
         pushClass = "push-push", //css class to add pushy capability
-        menuBtn = $('.menu-btn, .pushy a'), //css classes to toggle the menu
         menuSpeed = 200, //jQuery fallback menu speed
         menuWidth = pushy.width() + "px", //jQuery fallback menu width
         isOpen = html.hasClass('pushy-active');
@@ -36,6 +41,8 @@ $(function() {
         push.toggleClass(pushClass); //css class to add pushy capability
 
         if (isOpen) {
+            options.onOpen(pushy);
+
             //fix iphone landscape bug
             html.css('overflow-x', 'hidden');
             html.css('overflow-y', 'hidden');
@@ -43,6 +50,8 @@ $(function() {
             doc.on('touchmove', documentPreventContentScroll);
             pushy.on('touchmove', pushyPreventContentScroll);
         } else {
+            options.onClose(pushy);
+
             //fix iphone landscape bug
             html.css('overflow-x', '');
             html.css('overflow-y', '');
@@ -71,43 +80,14 @@ $(function() {
         push.animate({left: "0px"}, menuSpeed); //css class to add pushy capability
     }
 
-    if(Modernizr.csstransforms3d){
-        //toggle menu
-        menuBtn.click(function() {
-            togglePushy();
-        });
+    if (Modernizr.csstransforms3d) {
         //close menu when clicking site overlay
-        siteOverlay.click(function(){
+        siteOverlay.click(function () {
             togglePushy();
-        });
-    }else{
-        //jQuery fallback
-        pushy.css({left: "-" + menuWidth}); //hide menu by default
-        container.css({"overflow-x": "hidden"}); //fixes IE scrollbar issue
-
-        //keep track of menu state (open/close)
-        var state = true;
-
-        //toggle menu
-        menuBtn.click(function() {
-            if (state) {
-                openPushyFallback();
-                state = false;
-            } else {
-                closePushyFallback();
-                state = true;
-            }
-        });
-
-        //close menu when clicking site overlay
-        siteOverlay.click(function(){
-            if (state) {
-                openPushyFallback();
-                state = false;
-            } else {
-                closePushyFallback();
-                state = true;
-            }
         });
     }
-});
+
+    return {
+        toggle: togglePushy
+    }
+};

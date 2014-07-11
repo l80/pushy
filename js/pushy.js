@@ -62,7 +62,7 @@ $.pushy = function (options) {
             //fix horizontal scroll
             setTimeout(function() {
                 body.repaint();
-            }, 200);
+            }, menuSpeed);
         }
     }
 

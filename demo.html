@@ -30,16 +30,57 @@
                 <li><a href="#">Item 4</a></li>
                 <li><a href="#">Item 5</a></li>
                 <li><a href="#">Item 6</a></li>
+                <li><a href="#">Item 7</a></li>
+                <li><a href="#">Item 8</a></li>
+                <li><a href="#">Item 9</a></li>
+                <li><a href="#">Item 10</a></li>
+                <li><a href="#">Item 11</a></li>
+                <li><a href="#">Item 12</a></li>
+                <li><a href="#">Item 13</a></li>
+                <li><a href="#">Item 14</a></li>
+                <li><a href="#">Item 15</a></li>
+                <li><a href="#">Item 16</a></li>
+                <li><a href="#">Item 17</a></li>
+                <li><a href="#">Item 18</a></li>
+            </ul>
+        </nav>
+
+        <!-- Pushy Menu -->
+        <nav class="pushy-nav pushy-right">
+            <ul>
+                <li><a href="#">Item 21</a></li>
+                <li><a href="#">Item 22</a></li>
+                <li><a href="#">Item 23</a></li>
+                <li><a href="#">Item 24</a></li>
+                <li><a href="#">Item 25</a></li>
+                <li><a href="#">Item 26</a></li>
+                <li><a href="#">Item 27</a></li>
+                <li><a href="#">Item 28</a></li>
+                <li><a href="#">Item 29</a></li>
+                <li><a href="#">Item 30</a></li>
+                <li><a href="#">Item 31</a></li>
+                <li><a href="#">Item 32</a></li>
+                <li><a href="#">Item 33</a></li>
+                <li><a href="#">Item 34</a></li>
+                <li><a href="#">Item 35</a></li>
+                <li><a href="#">Item 36</a></li>
+                <li><a href="#">Item 37</a></li>
+                <li><a href="#">Item 38</a></li>
             </ul>
         </nav>
 
         <!-- Site Overlay -->
         <div class="pushy-cloak"></div>
 
+        <header class="menu">
+            <!-- Menu Button -->
+            <div class="menu-btn left">&#9776; Left Menu</div>
+            <div class="menu-btn right">&#9776; Right Menu</div>
+        </header>
+
         <!-- Your Content -->
         <div class="pushy-body">
-            <!-- Menu Button -->
-            <div class="menu-btn">&#9776; Menu</div>
+
 
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pharetra neque a diam cursus pulvinar. Suspendisse faucibus mi id accumsan lobortis. Pellentesque consectetur varius turpis, nec viverra justo pellentesque sit amet. Vestibulum convallis leo non purus vehicula, non faucibus libero rhoncus. Morbi aliquam tincidunt facilisis. Aenean sodales nulla ac semper consectetur. Vivamus commodo massa convallis justo posuere vestibulum. Aenean congue non mauris ac auctor. Ut suscipit et eros nec suscipit. Nulla congue, mauris nec bibendum sagittis, urna orci tincidunt massa, in vulputate velit nulla vitae nunc. Etiam urna justo, imperdiet nec orci sollicitudin, tempus feugiat erat. Vivamus id lectus nulla. Vestibulum sagittis cursus metus vel ultricies. Suspendisse viverra interdum metus eu placerat. Quisque tristique velit nisi, scelerisque consectetur tortor vehicula ut. Donec id fermentum mi, nec venenatis felis.</p>
 
@@ -49,8 +90,27 @@
 
         </div>
 
+        <!-- Sticky JS -->
+        <script src="js/vendor/jquery.sticky.js"></script>
         <!-- Pushy JS -->
         <script src="js/pushy.js"></script>
+        <script>
+            (function($) {
+
+                $(".menu").sticky({topSpacing:0});
+
+                var p = $.pushy();
+
+                $('.menu .menu-btn').click(function(e) {
+
+                    if($(this).hasClass('left')) {
+                        p.toggleLeft();
+                    } else {
+                        p.toggleRight()
+                    }
+                });
+            })(jQuery);
+        </script>
 
     </body>
 </html>

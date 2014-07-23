@@ -14,16 +14,13 @@ $.pushy = function (options) {
         doc = $(document),
         html = $('html'),
         body = $('body'),
-        container = $('.pushy-body'), //container css class
+        menu = $('.menu'),
         push = $('.push'), //css class to add pushy capability
         siteOverlay = $('.pushy-cloak'), //site overlay
-        pushyClass = "pushy-left pushy-open", //menu position & menu open class
-        pushyActiveClass = "pushy-active", //css class to toggle site overlay
-        containerClass = "container-push", //container open class
-        pushClass = "push-push", //css class to add pushy capability
-        menuSpeed = 200, //jQuery fallback menu speed
-        menuWidth = pushy.width() + "px", //jQuery fallback menu width
-        isOpen = html.hasClass('pushy-active');
+        pushyLeftActiveClass = "pushy-left-active", //css class to toggle site overlay
+        pushyRightActiveClass = "pushy-right-active", //css class to toggle site overlay
+        menuSpeed = 200; //jQuery fallback menu speed
+
 
     var documentPreventContentScroll = function(e){
         e.preventDefault();
@@ -33,61 +30,76 @@ $.pushy = function (options) {
         e.stopPropagation();
     };
 
-    function togglePushy(){
-        isOpen = !isOpen;
-        html.toggleClass(pushyActiveClass); //toggle site overlay
-        pushy.toggleClass(pushyClass);
-        container.toggleClass(containerClass);
-        push.toggleClass(pushClass); //css class to add pushy capability
+    function isLeftOpen() {
+        return html.hasClass('pushy-left-active');
+    }
 
-        if (isOpen) {
-            options.onOpen(pushy);
+    function isRightOpen() {
+        return html.hasClass('pushy-right-active');
+    }
 
-            //fix iphone landscape bug
-            html.css('overflow-x', 'hidden');
-            html.css('overflow-y', 'hidden');
+    function togglePushyLeft() {
+        html.removeClass(pushyRightActiveClass).toggleClass(pushyLeftActiveClass);
+        pushyClasses();
+    };
 
-            doc.on('touchmove', documentPreventContentScroll);
-            pushy.on('touchmove', pushyPreventContentScroll);
+    function togglePushyRight() {
+        html.removeClass(pushyLeftActiveClass).toggleClass(pushyRightActiveClass);
+        pushyClasses();
+    };
+
+    function openPushy() {
+
+        options.onOpen(pushy);
+
+        //fix iphone landscape bug
+        html.css('overflow-x', 'hidden');
+        html.css('overflow-y', 'hidden');
+
+        doc.on('touchmove', documentPreventContentScroll);
+        pushy.on('touchmove', pushyPreventContentScroll);
+    };
+
+    function closePushy() {
+        options.onClose(pushy);
+
+        //fix iphone landscape bug
+        html.css('overflow-x', '');
+        html.css('overflow-y', '');
+
+        doc.off('touchmove', documentPreventContentScroll);
+        pushy.off('touchmove', pushyPreventContentScroll);
+
+        //fix horizontal scroll
+        setTimeout(function() {
+            body.repaint();
+        }, menuSpeed);
+    };
+
+    function pushyClasses() {
+
+        if (isLeftOpen() || isRightOpen()) {
+            openPushy();
         } else {
-            options.onClose(pushy);
-
-            //fix iphone landscape bug
-            html.css('overflow-x', '');
-            html.css('overflow-y', '');
-
-            doc.off('touchmove', documentPreventContentScroll);
-            pushy.off('touchmove', pushyPreventContentScroll);
-
-            //fix horizontal scroll
-            setTimeout(function() {
-                body.repaint();
-            }, menuSpeed);
+            closePushy();
         }
-    }
+    };
 
-    function openPushyFallback(){
-        html.addClass(pushyActiveClass);
-        pushy.animate({left: "0px"}, menuSpeed);
-        container.animate({left: menuWidth}, menuSpeed);
-        push.animate({left: menuWidth}, menuSpeed); //css class to add pushy capability
-    }
-
-    function closePushyFallback(){
-        html.removeClass(pushyActiveClass);
-        pushy.animate({left: "-" + menuWidth}, menuSpeed);
-        container.animate({left: "0px"}, menuSpeed);
-        push.animate({left: "0px"}, menuSpeed); //css class to add pushy capability
-    }
+    pushy.height(pushy.height() - menu.height());
 
     if (Modernizr.csstransforms3d) {
         //close menu when clicking site overlay
-        siteOverlay.click(function () {
-            togglePushy();
+        siteOverlay.on('click', function () {
+            if(isLeftOpen()) {
+                togglePushyLeft();
+            } else {
+                togglePushyRight();
+            }
         });
     }
 
     return {
-        toggle: togglePushy
+        toggleLeft: togglePushyLeft,
+        toggleRight: togglePushyRight
     }
 };

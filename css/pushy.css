@@ -7,9 +7,9 @@
 
 .pushy-nav{
     position: fixed;
-    width: 200px;
+    width: 80%;
     height: 100%;
-    top: 0;
+    bottom: 0;
     z-index: 9999;
     background: #333332;
     -webkit-box-shadow: inset -10px 0 6px -9px rgba(0, 0, 0, .7);
@@ -19,31 +19,39 @@
     -webkit-overflow-scrolling: touch; /* enables momentum scrolling in iOS overflow elements */
 }
 
+.menu {
+    background: #ccc;
+    position: relative;
+    width: 100%;
+    height: 41px;
+    z-index: 10000;
+}
+
+.menu-btn.right {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+
 /* Menu Movement */
 
 .pushy-left{
-    -webkit-transform: translate3d(-200px,0,0);
-    -moz-transform: translate3d(-200px,0,0);
-    -ms-transform: translate3d(-200px,0,0);
-    -o-transform: translate3d(-200px,0,0);
-    transform: translate3d(-200px,0,0);
+    -webkit-transform: translate3d(-100%,0,0);
+    -moz-transform: translate3d(-100%,0,0);
+    -ms-transform: translate3d(-100%,0,0);
+    -o-transform: translate3d(-100%,0,0);
+    transform: translate3d(-100%,0,0);
 }
 
-.pushy-open{
-    -webkit-transform: translate3d(0,0,0);
-    -moz-transform: translate3d(0,0,0);
-    -ms-transform: translate3d(0,0,0);
-    -o-transform: translate3d(0,0,0);
-    transform: translate3d(0,0,0);
+.pushy-right{
+    -webkit-transform: translate3d(130%,0,0);
+    -moz-transform: translate3d(130%,0,0);
+    -ms-transform: translate3d(130%,0,0);
+    -o-transform: translate3d(130%,0,0);
+    transform: translate3d(130%,0,0);
 }
 
-.pushy-body.container-push, .push-push{
-    -webkit-transform: translate3d(200px,0,0);
-    -moz-transform: translate3d(200px,0,0);
-    -ms-transform: translate3d(200px,0,0);
-    -o-transform: translate3d(200px,0,0);
-    transform: translate3d(200px,0,0);
-}
 
 /* Menu Transitions */
 
@@ -58,21 +66,64 @@
 
 /* Site Overlay */
 
-.pushy-cloak{
+.pushy-cloak {
     display: none;
-}
-
-.pushy-active .pushy-cloak{
-    display: block;
     position: fixed;
-    top: 0;
-    right: 0;
+    top: 41px;
     bottom: 0;
-    left: 200px;
     z-index: 9999;
 }
 
-html.pushy-active, html.pushy-active body, html.pushy-active .pushy-body {
+.pushy-left-active .pushy-cloak{
+    display: block;
+    right: 0;
+    left: 80%;
+}
+
+.pushy-right-active .pushy-cloak{
+    display: block;
+    left: 0;
+    right: 80%;
+}
+
+.pushy-left-active .pushy-left{
+    -webkit-transform: translate3d(0,0,0);
+    -moz-transform: translate3d(0,0,0);
+    -ms-transform: translate3d(0,0,0);
+    -o-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+}
+
+.pushy-right-active .pushy-right {
+    -webkit-transform: translate3d(25%,0,0);
+    -moz-transform: translate3d(25%,0,0);
+    -ms-transform: translate3d(25%,0,0);
+    -o-transform: translate3d(25%,0,0);
+    transform: translate3d(25%,0,0);
+}
+
+.pushy-left-active .pushy-body {
+    -webkit-transform: translate3d(80%,0,0);
+    -moz-transform: translate3d(80%,0,0);
+    -ms-transform: translate3d(80%,0,0);
+    -o-transform: translate3d(80%,0,0);
+    transform: translate3d(80%,0,0);
+}
+
+.pushy-right-active .pushy-body {
+    -webkit-transform: translate3d(-80%,0,0);
+    -moz-transform: translate3d(-80%,0,0);
+    -ms-transform: translate3d(-80%,0,0);
+    -o-transform: translate3d(-80%,0,0);
+    transform: translate3d(-80%,0,0);
+}
+
+html.pushy-left-active,
+html.pushy-left-active body,
+html.pushy-left-active .pushy-body,
+html.pushy-right-active,
+html.pushy-right-active body,
+html.pushy-right-active .pushy-body{
     overflow-x: hidden; /* prevents horizontal scroll bars */
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* disable webkit tap highlight */
     height: 100%; /* fixes focus scrolling in Safari (OS X) */

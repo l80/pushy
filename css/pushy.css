@@ -23,12 +23,15 @@
     background: #ccc;
     position: relative;
     width: 100%;
-    height: 21px;
+    height: 41px;
     z-index: 10000;
 }
 
 .menu-btn {
-    height: 21px;
+    width: 120px;
+    padding: 0;
+    margin: 0;
+    height: 41px;
 }
 
 .menu-btn.right {

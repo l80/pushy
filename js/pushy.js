@@ -40,6 +40,14 @@ $.pushy = function (options) {
         e.stopPropagation();
     };
 
+    var pushyPreventContentScroll2 = function(e) {
+        if (e.currentTarget.scrollTop === 0) {
+            e.currentTarget.scrollTop = 1;
+        } else if (e.currentTarget.scrollHeight === e.currentTarget.scrollTop + e.currentTarget.offsetHeight) {
+            e.currentTarget.scrollTop -= 1;
+        }
+    };
+
     function isLeftOpen() {
         return html.hasClass('pushy-left-active');
     }
@@ -67,7 +75,8 @@ $.pushy = function (options) {
         html.css('overflow-y', 'hidden');
 
         doc.on('touchmove', documentPreventContentScroll);
-        pushy.on('touchmove', pushyPreventContentScroll);
+
+
     };
 
     function closePushy() {
@@ -78,8 +87,12 @@ $.pushy = function (options) {
         html.css('overflow-y', '');
 
         doc.off('touchmove', documentPreventContentScroll);
-        pushy.off('touchmove', pushyPreventContentScroll);
 
+        //fix horizontal scroll
+        /*setTimeout(function() {
+         body.repaint();
+         }, menuSpeed);
+         */
     };
 
     function pushyClasses() {
@@ -91,7 +104,10 @@ $.pushy = function (options) {
         }
     };
 
-    pushy.height(pushy.height() - menu.outerHeight());
+    body.on('touchmove', '.pushy-nav', pushyPreventContentScroll);
+    body.on('touchstart', '.pushy-nav', pushyPreventContentScroll2);
+
+    //pushy.height(pushy.height() - menu.outerHeight());
 
     if (Modernizr.csstransforms3d) {
         //close menu when clicking site overlay

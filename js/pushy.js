@@ -3,6 +3,16 @@
  * https://github.com/christophery/pushy/
  * by Christopher Yee */
 
+
+//www.eccesignum.org/blog/solving-display-refreshredrawrepaint-issues-in-webkit-browsers
+(function ($) {
+    $.fn.repaint = function () {
+        this.hide();
+        this.get(0).offsetHeight; // no need to store this anywhere, the reference is enough
+        this.show();
+    }
+})(jQuery);
+
 $.pushy = function (options) {
 
     options = $.extend({
@@ -70,10 +80,6 @@ $.pushy = function (options) {
         doc.off('touchmove', documentPreventContentScroll);
         pushy.off('touchmove', pushyPreventContentScroll);
 
-        //fix horizontal scroll
-        setTimeout(function() {
-            body.repaint();
-        }, menuSpeed);
     };
 
     function pushyClasses() {
@@ -85,7 +91,7 @@ $.pushy = function (options) {
         }
     };
 
-    pushy.height(pushy.height() - menu.height());
+    pushy.height(pushy.height() - menu.outerHeight());
 
     if (Modernizr.csstransforms3d) {
         //close menu when clicking site overlay
